@@ -6,6 +6,25 @@ body {
     text-decoration: underline hotpink;
 }
 /*==== HEADER CONTENT =====*/
+#modal {
+	background-color: rgba(0,0,0,0.4);
+    display: none;
+	height: 100%;
+	left: 0;
+	position: fixed;
+    overflow: auto;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+#modal-textbox {
+	background-color: white;
+	height: 350px;
+	width: 550px;
+	border-radius: 2px;
+    margin: 150px auto;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
 
 
 /*==== MAIN CONTENT of GAME =====*/
