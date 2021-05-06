@@ -6,75 +6,81 @@ console.log(`mr. hammond, i think we're back in business`);
 //otherwise the button says start
 
 //run over all buttons
+
 let start = document.querySelector('.navigation')
-let shape = document.querySelector('.color-one');
+//let shape = document.querySelector('.color-one');
 let colors = document.querySelectorAll('#shape');
+let squareOne = document.querySelector('.color-one')
+let squareTwo = document.querySelector('.color-two')
+let squareThree = document.querySelector('.color-three')
+let squareFour = document.querySelector('.color-four')
+let shapes = [squareOne, squareTwo, squareThree, squareFour];
 console.log(colors);
-const lightUpSequence = () => {
-   
 
 
-    for (let i = 0; i < colors.length; i+= 0.5) {
-        let button = colors[i];
-        console.log(button);
-        function lightUp() { 
-            button.style.opacity = 1
-        }
-        function lightOut() { button.style.opacity = 0.5 }
-        fade(button);
-        
-    }
-    function fade(button) {
-        for (let j = 900; j < 1800; j += 900) {
-        setTimeout(function() { lightUp(button) }, j)
-        setTimeout(function() { lightOut(button) }, j + 600)
-        }
-    }
-}
+
+
+//console.log(shapes.indexOf( squareTwo));
+
+
+
 //make button change appearance for one second at a time
-    //select current button
-    //make action to change appearance  
-    //if opacity is low  change opacity to full
+//select current button
+//make action to change appearance  
+//if opacity is low  change opacity to full
 
 //keep count of how many lights in the pattern
 
 
 
 
-//change change shape to full opacity 
-//const lightUp = () => 
-    //colors[i].style.opacity = 1;
-//change shape to original opacity
-//const lightOut = () => buttonOne.style.opacity = 0.5;
-//creates a blink effect once over 2 seconds
-// const fade = (button) => {
-//     for (let i = 900; i < 1800; i += 900) {
-//     setTimeout(lightUp, i)
-//     setTimeout(lightOut, i + 600)
-//     }
-// }
+//change shape to full opacity 
+const blink = (square) => {
+    //change shape to original opacity
+    const lightUp = () => 
+    square.style.opacity = 1;
+    
+    const lightOut = () => square.style.opacity = 0.2;
+    //creates a blink effect once over 2 seconds
+    for (let i = 1000; i < 2000; i += 1000) {
+        setTimeout(lightUp, i)
+        setTimeout(lightOut, i + 600)
+    }
+}
+
+let computerChoices = [];
+let time = 1000;
+const computersTurn = () => {
+    let randomIndex = Math.floor(Math.random() * 4);
+    computerChoices.push(randomIndex);
+    console.log(computerChoices);
+    //console.log(randomIndex);
+    if (computerChoices.length === 1) {
+        blink(shapes[randomIndex]);
+    } else {
+    //randomIndex = Math.floor(Math.random() * 4);
+    //console.log(randomIndex);
+    let startingLight = shapes.indexOf()
+    blink(computerCho[0])
+    setTimeout(function() {blink(shapes[randomIndex])}, time);
+    }
+    //randomIndex = Math.floor(Math.random() * 4);
+    //setTimeout(function() {blink(shapes[randomIndex])}, time + 1000);
+
+}
+//let squareOneBlink = fade(lightUp(buttonOne), lightOut(buttonOne));
 
 
-start.addEventListener('click', lightUpSequence);
+
+//fade(lightUp(buttonOne), lightOut(buttonOne));
+//start.addEventListener('click', squareOneBlink);
+start.addEventListener('click', computersTurn);
+
+// blink(squareOne);
+// setTimeout(function() { blink(squareTwo)}, 1000);
+// setTimeout(function() { blink(squareThree)}, 2000);
+// setTimeout(function() { blink(squareFour)}, 3000);
 
 
 
 
-
-// function fade() {
-//     setInterval(light, 150)
-// }
-
-
-// function light() {
-//     let startingOpacity = Number(buttonOne.style.opacity);
-//     if (startingOpacity < 1) {
-//         startingOpacity += 0.2;
-//         buttonOne.style.opacity = startingOpacity;  
-//     } else if (startingOpacity === 1) {
-//        startingOpacity -= 0.2;
-//        buttonOne.style.opacity = 0.2;
-       
-//     } 
-//     clearInterval();
-// }
