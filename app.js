@@ -14,15 +14,13 @@ console.log(`mr. hammond, i think we're back in business`);
 //keep count of how many lights in the pattern
 
 let start = document.querySelector('.navigation')
-let colors = document.querySelectorAll('#shape');
+//let colors = document.querySelectorAll('#shape');
 let squareOne = document.querySelector('.color-one')
 let squareTwo = document.querySelector('.color-two')
 let squareThree = document.querySelector('.color-three')
 let squareFour = document.querySelector('.color-four')
 let shapes = [squareOne, squareTwo, squareThree, squareFour];
-console.log(colors);
 
-const openBtn = document.getElementById('openModal');
 const modal = document.getElementById('modal')
 const close = document.getElementById('close')
 
@@ -30,19 +28,14 @@ const close = document.getElementById('close')
 
 const openModal = () => {
     modal.style.display = 'block';
-  }
-  const closeModal = () => {
+}
+const closeModal = () => {
     modal.style.display = 'none'
-  }
-  
+}
 
+//setTimeout(openModal, 1000);
 
-
-
-
-
-
-//change shape to full opacity 
+//change shape to full opacity
 const blink = (square) => {
     //change shape to original opacity
     const lightUp = () => 
@@ -55,43 +48,50 @@ const blink = (square) => {
         setTimeout(lightOut, i + 600)
     }
 }
+// let time = 1000;
+// let index = 0;
+// const randomSequenceGenerator = (square) => {
+//     setTimeout(function() { blink(square[index]) }, time)
+//     time += 1000;
+//     index += 1;
+// }
 
 let computerChoices = [];
-let time = 1000;
-//let num = 5;
+//let functionCalls = [];
+let num = 0;
+let time = 0;
 const computersTurn = () => {
-        //num -= 1;
-    let randomIndex = Math.floor(Math.random() * 4);
-    computerChoices.push(randomIndex);
-    console.log(computerChoices);
-    //console.log(randomIndex);
-    if (computerChoices.length === 1) {
-        blink(shapes[randomIndex]);
-    } else { 
-        for (let i = 0; i < computerChoices.length; i++) {
-            if (shapes.indexOf(squareOne) === computerChoices[i]) {
-                setTimeout(function() {blink(squareOne)}, 1000)
-                continue;
+    while (num < 25) {
+        num += 1;
+        let randomIndex = Math.floor(Math.random() * 4);
+        computerChoices.push(shapes[randomIndex]);
+        console.log(computerChoices);
+            if (computerChoices.length === 1) {
+                blink(computerChoices[0]);
             }
-            if (shapes.indexOf(squareTwo) === computerChoices[i]) {
-                setTimeout(function() {blink(squareOne)}, 1000)
-            }
-            if (shapes.indexOf(squareThree) === computerChoices[i]) {
-                setTimeout(function() {blink(squareOne)}, 1000)
-            }
-            if (shapes.indexOf(squareFour) === computerChoices[i]) {
-                setTimeout(function() {blink(squareOne)}, 1000)
-            }
-        }
-        //blink(computerCho[0])
-        //setTimeout(function() {blink(shapes[randomIndex])}, time);
-    }
+    } 
 }
 
+    // for (let i = 0; i < computerChoices.length; i++) {
+    //     blink(computerChoices[i])
+    //     setTimeout(function() {blink(computerChoices[2])}, time + 1000)
+    //     //randomSequenceGenerator(computerChoices[num]);
+    // }
 
-
+const checkForMatchingClicks = (square) => {
+    for (let j = 0; j < computerChoices.length; j++) {
+    if (square.classList.value === computerChoices[j].classList.value) {
+        alert('urright');
+        continue;
+    } else {
+        alert('uwrong');
+        break;
+    }
+    }
+}
+console.log(squareOne.classList)
+squareOne.addEventListener('click',function() {checkForMatchingClicks(squareOne)});
 start.addEventListener('click', computersTurn);
-openBtn.addEventListener('click', openModal);
 close.addEventListener('click', closeModal);
 
 
