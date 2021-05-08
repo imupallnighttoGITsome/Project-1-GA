@@ -14,6 +14,7 @@ console.log(`mr. hammond, i think we're back in business`);
 //keep count of how many lights in the pattern
 
 let start = document.querySelector('.navigation')
+let restart = document.querySelector('.reset')
 //let colors = document.querySelectorAll('#shape');
 let squareOne = document.querySelector('.color-one')
 let squareTwo = document.querySelector('.color-two')
@@ -56,44 +57,80 @@ const blink = (square) => {
 //     index += 1;
 // }
 
+// const list = [1, 2, 3, 4 , 5, 6];
+// const doSomething =  async () => {
+//     for (let i = 0; i < list.length; i++) {
+//         await pause(1000)
+//         console.log(list[i]);
+//     }
+// }
+const pause = (milliseconds) => {
+    return new Promise(resolve => setTimeout (resolve, milliseconds))
+}
+const doSomething = async (array) => {
+    for (let i = 0; i < array.length; i++) {
+        await pause(1000)
+        blink(array[i]);
+    }
+  
+}
+
 let computerChoices = [];
-//let functionCalls = [];
 let num = 0;
-let time = 0;
+let sequenceEnd = 1;
 const computersTurn = () => {
+    
     while (num < 25) {
         num += 1;
         let randomIndex = Math.floor(Math.random() * 4);
         computerChoices.push(shapes[randomIndex]);
-        console.log(computerChoices);
-            if (computerChoices.length === 1) {
-                blink(computerChoices[0]);
-            }
-    } 
-}
+        //console.log(computerChoices);
+        if (computerChoices.length === 1) {
+            blink(computerChoices[0]);
+            //break;
+        } else {
+            sequenceEnd += 1;
+            let newComputerChoices = computerChoices.slice(0, sequenceEnd);
+            console.log(computerChoices);
+            doSomething(newComputerChoices)
+            continue;
+        }
+    }
+} 
 
-    // for (let i = 0; i < computerChoices.length; i++) {
+ 
+  
+
+
+// for (let i = 0; i < computerChoices.length; i++) {
     //     blink(computerChoices[i])
     //     setTimeout(function() {blink(computerChoices[2])}, time + 1000)
     //     //randomSequenceGenerator(computerChoices[num]);
     // }
+    
+    const checkForMatchingClicks = (square) => {
+        for (let j = 0; j < computerChoices.length; j++) {
+            if (square.classList.value !== computerChoices[j].classList.value) {
+                console.log('wrong');
+                break;
+            } else {
+                console.log('right')
 
-const checkForMatchingClicks = (square) => {
-    for (let j = 0; j < computerChoices.length; j++) {
-    if (square.classList.value === computerChoices[j].classList.value) {
-        alert('urright');
-        continue;
-    } else {
-        alert('uwrong');
-        break;
+            }
+        }
     }
-    }
-}
-console.log(squareOne.classList)
-squareOne.addEventListener('click',function() {checkForMatchingClicks(squareOne)});
-start.addEventListener('click', computersTurn);
-close.addEventListener('click', closeModal);
-
+    
+    
+    //console.log(squareOne.classList)
+    
+    start.addEventListener('click', computersTurn);
+    restart.addEventListener('click', doSomething);
+    squareOne.addEventListener('click',function() {checkForMatchingClicks(squareOne)});
+    squareTwo.addEventListener('click',function() {checkForMatchingClicks(squareTwo)});
+    squareThree.addEventListener('click',function() {checkForMatchingClicks(squareThree)});
+    squareFour.addEventListener('click',function() {checkForMatchingClicks(squareFour)});
+    close.addEventListener('click', closeModal);
+    
 
 
 
