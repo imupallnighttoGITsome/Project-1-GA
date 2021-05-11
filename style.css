@@ -106,6 +106,9 @@ a {
     -ms-transition: opacity 0.3s ease-in-out;
     -o-transition: opacity 0.3s ease-in-out;
 }
+.checker {
+    float: right;
+}
 
 /*==== FOOTER CONTENT 
 .color-one.light {

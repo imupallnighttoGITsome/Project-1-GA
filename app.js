@@ -3,21 +3,21 @@ console.log(`mr. hammond, i think we're back in business`);
 
 let start = document.querySelector('.navigation')
 let restart = document.querySelector('.reset')
-let colors = document.querySelectorAll('#shape');
-console.log(colors);
+let colors = document.querySelectorAll('#shape')
 let squareOne = document.querySelector('.color-one')
 let squareTwo = document.querySelector('.color-two')
 let squareThree = document.querySelector('.color-three')
 let squareFour = document.querySelector('.color-four')
-let shapes = [squareOne, squareTwo, squareThree, squareFour];
+let shapes = [squareOne, squareTwo, squareThree, squareFour]
 let currentStreak = document.querySelector('.currentScore')
-let currentStreakCount = Number(document.querySelector('.currentScore').innerText);
-console.log(currentStreak);
+let highScore = document.querySelector('.highScore')
+let check = document.querySelector('.checker')
+let computerChoices = [];
+let count = 0;
+
 
 const modal = document.getElementById('modal')
 const close = document.getElementById('close')
-
-
 
 const openModal = () => {
     modal.style.display = 'block';
@@ -26,17 +26,16 @@ const closeModal = () => {
     modal.style.display = 'none'
 }
 
-
 const blink = (square) => {
     const lightUp = () => 
-    square.style.opacity = 1;
-    
+        square.style.opacity = 1;
     const lightOut = () => square.style.opacity = 0.5;
-    for (let i = 1000; i < 2000; i += 1000) {
-        setTimeout(lightUp, i)
-        setTimeout(lightOut, i + 600)
+        for (let i = 1000; i < 2000; i += 1000) {
+            setTimeout(lightUp, i)
+            setTimeout(lightOut, i + 600)
     }
 }
+
 const userBlink = (square) => {
     const lightUp = () => square.style.opacity = 1;
     const lightOut = () => square.style.opacity = 0.5;
@@ -44,9 +43,17 @@ const userBlink = (square) => {
     setTimeout(lightOut, 500) 
 }
 
+const addBlinkToUserClicks = () => {
+    colors.forEach(function(color) {
+        color.addEventListener('click', function() { userBlink(color) })   
+        
+    })
+}
+
 const pause = (milliseconds) => {
     return new Promise(resolve => setTimeout (resolve, milliseconds))
 }
+
 const createSequence = async (array) => {
     for (let i = 1; i < array.length; i++) {
         await pause(1000)
@@ -55,63 +62,70 @@ const createSequence = async (array) => {
     
 }
 
-let computerChoices = [];
 const computersTurn = () => {
     let randomIndex = Math.floor(Math.random() * 4);
     computerChoices.push(shapes[randomIndex])
+    userChoices = [];
+    start.style.opacity = 0;
+    keepScore()
+    console.log(computerChoices);
     if (computerChoices.length === 1) {
-        blink(computerChoices[0])
         start.innerText = 'HIT ME'
+        blink(computerChoices[0])
     } else {
-        console.log(computerChoices);
         blink(computerChoices[0])
         createSequence(computerChoices)
     }
     return computerChoices;
 }
-const addBlinkToUserClicks = () => {
-    colors.forEach(function(color) {
-        color.addEventListener('click', function() { userBlink(color) })
-    })
-}
+
 let userChoices = [];
+//let userChoice;
+const userClicks = (square) => {
+    //userChoice = square
+    userChoices.push(square)
+    console.log(userChoices)
+}
 
-const checkForMatchingClicks = (square) => {
+const keepScore = () => {
+    count += 1;
+    currentStreak.textContent = `${count}`
+}
+const checkClicks = () => {
+
     for (let j = 0; j < computerChoices.length; j++) {
-        console.log(computerChoices[j]);
-        if (square.classList.value === computerChoices[j].classList.value) {
-            userChoices.push(square)
-            currentStreakCount += 1;
-            let count = document.createTextNode(currentStreakCount)
-            console.log(typeof count)
-            currentStreak.appendChild(count);
-            console.log(userChoices);
-            console.log('right');
-
-        } else {
-            console.log('wrong')
-            start.style.opacity = 0;
-            break;
+            if (computerChoices[j].classList.value !== userChoices[j].classList.value) {
+                start.style.opacity = 0;
+                return alert('better luck next time')
+            } else { 
+                start.style.opacity = 1;
+                return alert('look at you, push hit me to keep on truckin')
+            }
         }
+    }
+const updateLongestStreak = () => {
+    if (Number(highScore.textContent) < `${count}`) {
+        highScore.textContent = `${count}`
     }
 }
 
 const playAgain = () => {
+    updateLongestStreak();
     computerChoices = [];
     start.style.opacity = 1;
+    count = 0;
     computersTurn();
 }
 
-//currentStreak.appendChild(currentStreakCount);
-setTimeout(openModal, 1000);
+//setTimeout(openModal, 1000);
 addBlinkToUserClicks();
 start.addEventListener('click', computersTurn)
 restart.addEventListener('click', playAgain)
-squareOne.addEventListener('click',function() {checkForMatchingClicks(squareOne)});
-//squareOne.addEventListener('click', blink)
-squareTwo.addEventListener('click',function() {checkForMatchingClicks(squareTwo)});
-squareThree.addEventListener('click',function() {checkForMatchingClicks(squareThree)});
-squareFour.addEventListener('click',function() {checkForMatchingClicks(squareFour)});
+squareOne.addEventListener('click', function() { userClicks(squareOne)});
+squareTwo.addEventListener('click',function() {userClicks(squareTwo)});
+squareThree.addEventListener('click',function() {userClicks(squareThree)});
+squareFour.addEventListener('click',function() {userClicks(squareFour)});
+check.addEventListener('click', checkClicks)
 close.addEventListener('click', closeModal);
     
 
@@ -133,6 +147,13 @@ close.addEventListener('click', closeModal);
 
 //keep count of how many lights in the pattern
 
+// if (square.classList.value !== computerChoices[j].classList.value) {
+//     console.log(false)
+// } else {
+//     console.log(true)
+//  //start.style.opacity = 0;
+// //         break;
 
+//}  
 
 
