@@ -15,11 +15,19 @@ let highScore = document.querySelector('.highScore')
 let gameOver = document.querySelector('.game-over')
 let computerChoices = []
 let userChoices = []
+let time = 1000;
 let count = 0
 
 
 const modal = document.getElementById('modal')
 const close = document.getElementById('close')
+let url = 'https://boardgamegeek.com/video/75030/simon/milton-bradley-electronic-handheld-game-commercial'
+fetch(url, {
+    mode: 'no-cors'
+})
+.then(response => response.json())
+.then(data => console.log(data))
+
 
 const openModal = () => {
     modal.style.display = 'block'
@@ -70,23 +78,28 @@ const computersTurn = () => {
     userChoices = [];
     start.style.opacity = 0;
     console.log(computerChoices);
-    keepScore()
     if (computerChoices.length === 1) {
         start.innerText = 'HIT ME'
         blink(computerChoices[0])
     } else {
+        keepScore()
         blink(computerChoices[0])
         createSequence(computerChoices)
+        //await pause(time)
     }
     return computerChoices;
 }
 
-let time = 2000;
-const userClicks = async(square) => {
+const userClicks = (square) => {
     userChoices.push(square)
-    await pause(time)
-    time += 1000
-    checkClicks(computerChoices, userChoices)
+    if (userChoices.length === computerChoices.length) {
+        check.style.boxShadow = '5px 5px 5px  rgba(253, 252, 254, 0.541)';
+
+    }
+    //await pause (800)
+    //checkClicks(computerChoices, userChoices)
+    //await pause(time)
+    //time += 500
 }
 
 const keepScore = () => {
@@ -94,9 +107,10 @@ const keepScore = () => {
     currentStreak.textContent = `${count}`
 }
 
-const checkClicks = (arr1, arr2) => {
+const checkClicks = async(arr1, arr2) => {
+    check.style.boxShadow = 'none'
     if (arr1.every((choice, index) => choice === arr2[index])) {
-        //alert(`You're radical! Click 'Hit Me' to keep this streak goin'`)
+        alert(`You're radical! Click 'Hit Me' to keep this streak goin'`)
         start.style.opacity = 1
     } else {
         gameOver.style.display = 'block'
@@ -106,7 +120,7 @@ const checkClicks = (arr1, arr2) => {
 
 }
 
-    const updateLongestStreak = () => {
+const updateLongestStreak = () => {
     if (Number(highScore.textContent) < `${count}`) {
         highScore.textContent = `${count}`
     }
@@ -116,9 +130,11 @@ const playAgain = () => {
     updateLongestStreak();
     gameOver.style.display = 'none'
     computerChoices = []
-    count = 0
-    computersTurn()
+    time = 1000
+    count = 0;
+    currentStreak.textContent = `${count}`
     start.style.opacity = 1
+    start.innerText = "START"
 }
 
 //setTimeout(openModal, 1000);
