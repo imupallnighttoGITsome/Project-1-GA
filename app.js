@@ -3,6 +3,7 @@ console.log(`mr. hammond, i think we're back in business`);
 
 let start = document.querySelector('.navigation')
 let restart = document.querySelector('.reset')
+let check = document.querySelector('.checker')
 let colors = document.querySelectorAll('#shape')
 let squareOne = document.querySelector('.color-one')
 let squareTwo = document.querySelector('.color-two')
@@ -11,16 +12,17 @@ let squareFour = document.querySelector('.color-four')
 let shapes = [squareOne, squareTwo, squareThree, squareFour]
 let currentStreak = document.querySelector('.currentScore')
 let highScore = document.querySelector('.highScore')
-let check = document.querySelector('.checker')
-let computerChoices = [];
-let count = 0;
+let gameOver = document.querySelector('.game-over')
+let computerChoices = []
+let userChoices = []
+let count = 0
 
 
 const modal = document.getElementById('modal')
 const close = document.getElementById('close')
 
 const openModal = () => {
-    modal.style.display = 'block';
+    modal.style.display = 'block'
 }
 const closeModal = () => {
     modal.style.display = 'none'
@@ -28,8 +30,8 @@ const closeModal = () => {
 
 const blink = (square) => {
     const lightUp = () => 
-        square.style.opacity = 1;
-    const lightOut = () => square.style.opacity = 0.5;
+        square.style.opacity = 1
+    const lightOut = () => square.style.opacity = 0.5
         for (let i = 1000; i < 2000; i += 1000) {
             setTimeout(lightUp, i)
             setTimeout(lightOut, i + 600)
@@ -37,8 +39,8 @@ const blink = (square) => {
 }
 
 const userBlink = (square) => {
-    const lightUp = () => square.style.opacity = 1;
-    const lightOut = () => square.style.opacity = 0.5;
+    const lightUp = () => square.style.opacity = 1
+    const lightOut = () => square.style.opacity = 0.5
     lightUp()
     setTimeout(lightOut, 500) 
 }
@@ -67,8 +69,8 @@ const computersTurn = () => {
     computerChoices.push(shapes[randomIndex])
     userChoices = [];
     start.style.opacity = 0;
-    keepScore()
     console.log(computerChoices);
+    keepScore()
     if (computerChoices.length === 1) {
         start.innerText = 'HIT ME'
         blink(computerChoices[0])
@@ -79,31 +81,32 @@ const computersTurn = () => {
     return computerChoices;
 }
 
-let userChoices = [];
-//let userChoice;
-const userClicks = (square) => {
-    //userChoice = square
+let time = 2000;
+const userClicks = async(square) => {
     userChoices.push(square)
-    console.log(userChoices)
+    await pause(time)
+    time += 1000
+    checkClicks(computerChoices, userChoices)
 }
 
 const keepScore = () => {
     count += 1;
     currentStreak.textContent = `${count}`
 }
-const checkClicks = () => {
 
-    for (let j = 0; j < computerChoices.length; j++) {
-            if (computerChoices[j].classList.value !== userChoices[j].classList.value) {
-                start.style.opacity = 0;
-                return alert('better luck next time')
-            } else { 
-                start.style.opacity = 1;
-                return alert('look at you, push hit me to keep on truckin')
-            }
-        }
+const checkClicks = (arr1, arr2) => {
+    if (arr1.every((choice, index) => choice === arr2[index])) {
+        //alert(`You're radical! Click 'Hit Me' to keep this streak goin'`)
+        start.style.opacity = 1
+    } else {
+        gameOver.style.display = 'block'
+        gameOver.style.marginTop = "40px"
+        alert('Better luck next time')
     }
-const updateLongestStreak = () => {
+
+}
+
+    const updateLongestStreak = () => {
     if (Number(highScore.textContent) < `${count}`) {
         highScore.textContent = `${count}`
     }
@@ -111,22 +114,23 @@ const updateLongestStreak = () => {
 
 const playAgain = () => {
     updateLongestStreak();
-    computerChoices = [];
-    start.style.opacity = 1;
-    count = 0;
-    computersTurn();
+    gameOver.style.display = 'none'
+    computerChoices = []
+    count = 0
+    computersTurn()
+    start.style.opacity = 1
 }
 
 //setTimeout(openModal, 1000);
-addBlinkToUserClicks();
+addBlinkToUserClicks()
 start.addEventListener('click', computersTurn)
 restart.addEventListener('click', playAgain)
-squareOne.addEventListener('click', function() { userClicks(squareOne)});
-squareTwo.addEventListener('click',function() {userClicks(squareTwo)});
-squareThree.addEventListener('click',function() {userClicks(squareThree)});
-squareFour.addEventListener('click',function() {userClicks(squareFour)});
-check.addEventListener('click', checkClicks)
-close.addEventListener('click', closeModal);
+squareOne.addEventListener('click', function() {userClicks(squareOne)})
+squareTwo.addEventListener('click',function() {userClicks(squareTwo)})
+squareThree.addEventListener('click',function() {userClicks(squareThree)})
+squareFour.addEventListener('click',function() {userClicks(squareFour)})
+check.addEventListener('click', function() {checkClicks(computerChoices, userChoices)})
+close.addEventListener('click', closeModal)
     
 
 //change shape to full opacity
@@ -157,3 +161,24 @@ close.addEventListener('click', closeModal);
 //}  
 
 
+
+    // let currentCompClicks = JSON.stringify(computerChoices.classList);
+    // console.log(currentCompClicks)
+    // let currentUserClicks = JSON.stringify(userChoices);
+    // console.log(currentUserClicks)
+    // if (currentCompClicks !== currentUserClicks) {
+    //     start.style.opacity = 0;
+    //     console.log('betterlucknexttime')
+    // } else {
+    //     console.log('uonamadstreak')
+    // }
+    // for (let j = 0; j < computerChoices.length; j++) {
+    //     if (computerChoices[j].classList.value !== userChoices[j].classList.value) {
+    //         console.log('sorry')
+    //         break;
+    //     }
+    //     if (computerChoices[j].classList.value === userChoices[j].classList.value) { 
+    //             console.log('look at you, push hit me to keep on truckin')
+    //             return true;
+    //         }
+    //     }

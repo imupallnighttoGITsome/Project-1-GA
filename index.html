@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <title>SIMON</title>
 </head>
 <body>
 <header>
     <div id="modal">
         <div id="modal-textbox">
-            <h1>How to Play</h1>
+            <h2>How to Play</h2>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga quaerat recusandae aliquam quidem impedit.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga quaerat recusandae aliquam quidem impedit.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga quaerat recusandae aliquam quidem impedit.</p>
@@ -21,25 +22,31 @@
             </div>
         </div>
     </div>
-
-    <h1 class="game-title">SIMON</h1>
+<div class="img-container">
+    <img src="simon_logo.png" alt="simon-logo">
+</div>
+<div class="game-status">
+    <h1 class="game-over">GAME OVER</h1>
     <button class="navigation">START</button>
+</div>
     <h3 class="most-wins">Longest Streak: <span class="highScore">0</span></h3>
 </header>
 <main>
     <div class="container">
         <div class="border">
-        <div id="shape" class="color-one"></div>
-        <div id="shape" class="color-two"></div>
-        <div id="shape" class="color-three"></div>
-        <div id="shape" class="color-four"></div>
-    </div>
+        <div class="border2">
+            <div id="shape" class="color-one"></div>
+            <div id="shape" class="color-two"></div>
+            <div id="shape" class="color-three"></div>
+            <div id="shape" class="color-four"></div>
+        </div>
+        </div>
     </div>
     <h3>Current Streak: <span class="currentScore">0</span></h3>
-    <button class="checker">CHECK YOU STREAK</button>
+    <button class="checker">CHECK YOUR STREAK</button>
 </main>
 <footer>
-    <button class="reset">REPLAY</button>
+    <button class="reset">REPLAY</button><br>
     <p class="copyright">Created By: Chloe</p>
 </footer>
 
