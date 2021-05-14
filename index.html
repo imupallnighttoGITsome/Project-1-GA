@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+   
     <title>SIMON</title>
 </head>
 <body>
@@ -20,35 +21,37 @@
             </div>
         </div>
     </div>
-<div class="img-container">
-    <img src="simon_logo.png" alt="simon-logo">
-</div>
-<div class="game-status">
-    <h1 class="game-over">GAME OVER</h1>
-    <button class="navigation">START</button>
-</div>
-    <h3 class="most-wins">Longest Streak: <span class="highScore">0</span></h3>
+    <div class="title-container">
+        <span class="title">SIMON</span>
+    </div>
+    <div class="gameEnd">
+        <h1 class="game-over">GAME OVER</h1>
+    </div>
 </header>
+
 <main>
+    <div class="current">
+        <button class="pg-buttons" id="start">START</button>
+        <button class="pg-buttons" id="reset">REPLAY</button>
+        <h2 class="running-score">CURRENT STREAK : <span class="score">0</span></h2>
+    </div>
     <div class="container">
         <div class="border">
-        <div class="border2">
-            <div id="shape" class="color-one"></div>
-            <div id="shape" class="color-two"></div>
-            <div id="shape" class="color-three"></div>
-            <div id="shape" class="color-four"></div>
-        </div>
+            <div class="border2">
+                <div id="shape" class="color-one"></div>
+                <div id="shape" class="color-two"></div>
+                <div id="shape" class="color-three"></div>
+                <div id="shape" class="color-four"></div>
+            </div>
         </div>
     </div>
-    <h3>Current Streak: <span class="currentScore">0</span></h3>
-    <button class="checker">CHECK YOUR STREAK</button>
 </main>
 <footer>
-    <button class="reset">REPLAY</button><br>
-    <p class="copyright">Created By: Chloe</p>
+    <div class="most">
+        <h2 class="longest-score">LONGEST STREAK : <span class="h-score">0</span></h2>
+        <button class="pg-buttons" id="checker">CHECK YOUR STREAK</button>
+    </div>
 </footer>
-
-
 <script src="app.js"></script>   
 </body>
 </html>

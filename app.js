@@ -1,18 +1,17 @@
-console.log(`mr. hammond, i think we're back in business`);
-
-
-let start = document.querySelector('.navigation')
-let restart = document.querySelector('.reset')
-let check = document.querySelector('.checker')
+let start = document.querySelector('#start')
+let restart = document.querySelector('#reset')
+let check = document.querySelector('#checker')
 let colors = document.querySelectorAll('#shape')
 let squareOne = document.querySelector('.color-one')
 let squareTwo = document.querySelector('.color-two')
 let squareThree = document.querySelector('.color-three')
 let squareFour = document.querySelector('.color-four')
 let shapes = [squareOne, squareTwo, squareThree, squareFour]
-let currentStreak = document.querySelector('.currentScore')
-let highScore = document.querySelector('.highScore')
+let currentStreakCount = document.querySelector('.score')
+let currentStreak = document.querySelector('.running-score')
+let highScore = document.querySelector('.h-score')
 let gameOver = document.querySelector('.game-over')
+let pointer2 = document.querySelector('#pointer-2')
 let computerChoices = []
 let userChoices = []
 let time = 1000;
@@ -21,12 +20,6 @@ let count = 0
 
 const modal = document.getElementById('modal')
 const close = document.getElementById('close')
-let url = 'https://boardgamegeek.com/video/75030/simon/milton-bradley-electronic-handheld-game-commercial'
-fetch(url, {
-    mode: 'no-cors'
-})
-.then(response => response.json())
-.then(data => console.log(data))
 
 
 const openModal = () => {
@@ -72,7 +65,7 @@ const createSequence = async (array) => {
     
 }
 
-const computersTurn = () => {
+const computersTurn = async() => {
     let randomIndex = Math.floor(Math.random() * 4);
     computerChoices.push(shapes[randomIndex])
     userChoices = [];
@@ -83,9 +76,11 @@ const computersTurn = () => {
         blink(computerChoices[0])
     } else {
         keepScore()
+        currentStreak.style.opacity = 1
+        currentStreakCount.style.opacity = 1
         blink(computerChoices[0])
         createSequence(computerChoices)
-        //await pause(time)
+        await pause(time)
     }
     return computerChoices;
 }
@@ -93,28 +88,30 @@ const computersTurn = () => {
 const userClicks = (square) => {
     userChoices.push(square)
     if (userChoices.length === computerChoices.length) {
-        check.style.boxShadow = '5px 5px 5px  rgba(253, 252, 254, 0.541)';
-
-    }
-    //await pause (800)
-    //checkClicks(computerChoices, userChoices)
-    //await pause(time)
-    //time += 500
+        check.style.backgroundColor = 'rgb(255, 0, 212)'
+    } 
 }
 
 const keepScore = () => {
     count += 1;
-    currentStreak.textContent = `${count}`
+    currentStreakCount.textContent = `${count}`
 }
 
-const checkClicks = async(arr1, arr2) => {
+const checkClicks = (arr1, arr2) => {
     check.style.boxShadow = 'none'
     if (arr1.every((choice, index) => choice === arr2[index])) {
         alert(`You're radical! Click 'Hit Me' to keep this streak goin'`)
         start.style.opacity = 1
+        start.style.backgroundColor = 'rgb(255, 0, 212)'
+        check.style.background = 'none'
     } else {
+        check.style.opacity = 0
+        currentStreak.style.opacity = 0
+        currentStreakCount.style.opacity = 0
         gameOver.style.display = 'block'
         gameOver.style.marginTop = "40px"
+        start.style.opacity = 0
+        restart.style.opacity = 1
         alert('Better luck next time')
     }
 
@@ -130,14 +127,17 @@ const playAgain = () => {
     updateLongestStreak();
     gameOver.style.display = 'none'
     computerChoices = []
-    time = 1000
     count = 0;
     currentStreak.textContent = `${count}`
+    check.style.opacity = 1
     start.style.opacity = 1
+    currentStreak.style.opacity = 0
     start.innerText = "START"
+    restart.style.opacity = 0
+    computersTurn()
 }
 
-//setTimeout(openModal, 1000);
+setTimeout(openModal, 1000);
 addBlinkToUserClicks()
 start.addEventListener('click', computersTurn)
 restart.addEventListener('click', playAgain)
@@ -149,52 +149,3 @@ check.addEventListener('click', function() {checkClicks(computerChoices, userCho
 close.addEventListener('click', closeModal)
     
 
-//change shape to full opacity
-//change shape to original opacity
-//creates a blink effect once over 2 seconds
-
-
-//make button to start pattern
-//once play has begun change start button to say hit me
-//if computer has lit up one shape, then start button text changes
-//otherwise the button says start
-
-//run over all buttons
-//make button change appearance for one second at a time
-//select current button
-//make action to change appearance  
-//if opacity is low  change opacity to full
-
-//keep count of how many lights in the pattern
-
-// if (square.classList.value !== computerChoices[j].classList.value) {
-//     console.log(false)
-// } else {
-//     console.log(true)
-//  //start.style.opacity = 0;
-// //         break;
-
-//}  
-
-
-
-    // let currentCompClicks = JSON.stringify(computerChoices.classList);
-    // console.log(currentCompClicks)
-    // let currentUserClicks = JSON.stringify(userChoices);
-    // console.log(currentUserClicks)
-    // if (currentCompClicks !== currentUserClicks) {
-    //     start.style.opacity = 0;
-    //     console.log('betterlucknexttime')
-    // } else {
-    //     console.log('uonamadstreak')
-    // }
-    // for (let j = 0; j < computerChoices.length; j++) {
-    //     if (computerChoices[j].classList.value !== userChoices[j].classList.value) {
-    //         console.log('sorry')
-    //         break;
-    //     }
-    //     if (computerChoices[j].classList.value === userChoices[j].classList.value) { 
-    //             console.log('look at you, push hit me to keep on truckin')
-    //             return true;
-    //         }
-    //     }
