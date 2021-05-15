@@ -7,14 +7,13 @@ let squareTwo = document.querySelector('.color-two')
 let squareThree = document.querySelector('.color-three')
 let squareFour = document.querySelector('.color-four')
 let shapes = [squareOne, squareTwo, squareThree, squareFour]
-let currentStreakCount = document.querySelector('.score')
+let currentScore = document.querySelector('.score')
 let currentStreak = document.querySelector('.running-score')
 let highScore = document.querySelector('.h-score')
 let gameOver = document.querySelector('.game-over')
-let pointer2 = document.querySelector('#pointer-2')
 let computerChoices = []
 let userChoices = []
-let time = 1000;
+let time = 1000
 let count = 0
 
 
@@ -65,24 +64,23 @@ const createSequence = async (array) => {
     
 }
 
-const computersTurn = async() => {
+const computersTurn = () => {
     let randomIndex = Math.floor(Math.random() * 4);
     computerChoices.push(shapes[randomIndex])
-    userChoices = [];
-    start.style.opacity = 0;
     console.log(computerChoices);
+    start.innerText = 'HIT ME'
+    start.style.background = 'none'
+    userChoices = []
     if (computerChoices.length === 1) {
-        start.innerText = 'HIT ME'
         blink(computerChoices[0])
+        start.style.opacity = 1
     } else {
-        keepScore()
-        currentStreak.style.opacity = 1
-        currentStreakCount.style.opacity = 1
         blink(computerChoices[0])
         createSequence(computerChoices)
-        await pause(time)
+        keepScore()
+        start.style.background = 'none'
+        start.style.opacity = 1
     }
-    return computerChoices;
 }
 
 const userClicks = (square) => {
@@ -94,27 +92,25 @@ const userClicks = (square) => {
 
 const keepScore = () => {
     count += 1;
-    currentStreakCount.textContent = `${count}`
+    currentScore.textContent = `${count}`
 }
 
 const checkClicks = (arr1, arr2) => {
-    check.style.boxShadow = 'none'
     if (arr1.every((choice, index) => choice === arr2[index])) {
-        alert(`You're radical! Click 'Hit Me' to keep this streak goin'`)
+        start.innerText = 'HIT ME'
         start.style.opacity = 1
         start.style.backgroundColor = 'rgb(255, 0, 212)'
         check.style.background = 'none'
+        alert(`You're radical! Click 'Hit Me' to keep this streak goin'`)
     } else {
-        check.style.opacity = 0
-        currentStreak.style.opacity = 0
-        currentStreakCount.style.opacity = 0
+        currentStreak.style.display = 'none'
         gameOver.style.display = 'block'
         gameOver.style.marginTop = "40px"
+        restart.style.display = 'inline'
         start.style.opacity = 0
-        restart.style.opacity = 1
         alert('Better luck next time')
     }
-
+    
 }
 
 const updateLongestStreak = () => {
@@ -124,20 +120,20 @@ const updateLongestStreak = () => {
 }
 
 const playAgain = () => {
-    updateLongestStreak();
-    gameOver.style.display = 'none'
     computerChoices = []
-    count = 0;
-    currentStreak.textContent = `${count}`
-    check.style.opacity = 1
-    start.style.opacity = 1
-    currentStreak.style.opacity = 0
+    gameOver.style.display = 'none'
+    restart.style.display = 'none'
+    check.style.background = 'none'
     start.innerText = "START"
-    restart.style.opacity = 0
-    computersTurn()
+    start.style.backgroundColor = 'rgb(255, 0, 212)'
+    updateLongestStreak();
+    count = 0;
+    currentScore.textContent = `${count}`
+    currentStreak.style.display = 'inline'
+    start.style.opacity = 1
 }
 
-setTimeout(openModal, 1000);
+//setTimeout(openModal, 1000);
 addBlinkToUserClicks()
 start.addEventListener('click', computersTurn)
 restart.addEventListener('click', playAgain)

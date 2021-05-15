@@ -86,7 +86,7 @@ a {
     color: #c7c6ab;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 18px;
-    opacity: 1;
+    /*opacity: 1;*/
     padding: 5px 5px;
 
 }
@@ -96,14 +96,6 @@ a {
 /*==== MAIN CONTENT of GAME =====*/
 main {
     margin: 0 auto;
-}
-#start {
-    display: grid;
-    grid-column-start: 2;
-    height: 35px;
-    margin-left: 250px;
-    margin-top: 10px;
-    width: 80px;
 }
 .gameEnd {
     display: flex;
@@ -115,7 +107,7 @@ h1 {
     display: none;
     font-size: 50px;
     -webkit-text-stroke: .3px rgb(249, 245, 249);
-
+    
 }
 .current {
     color: #c7c6ab;
@@ -124,17 +116,24 @@ h1 {
     grid-template-columns: 200px 200px 300px 270px;
 }
 .running-score {
-    line-height: 20px;
     grid-column-start: 4;
-    grid-column-end: span;
-
+    margin-top: 30px;
+}
+#start {
+    display: grid;
+    grid-column-start: 2;
+    height: 35px;
+    margin-left: 250px;
+    margin-top: 10px;
+    opacity: 1;
+    width: 80px;
 }
 #reset {
+    display: none;
     grid-column-start: 3;
     height: 35px;
     margin-left: 30px;
     margin-top: 30px;
-    opacity: 0;
     width: 100px;
 }
 .container {
@@ -172,7 +171,6 @@ h1 {
     border-radius: 6px;
     height: 60%;
     width: 150px;
-    justify-content: center;
     opacity: .5;
     border: 1px solid transparent;
     box-shadow: 2px 2px 2px 1px rgba(66, 59, 59, 0.993);
@@ -198,9 +196,6 @@ h1 {
 
 .color-four {
     background-color: #f3aaa0;
-}
-.score {
-    font-size: 35px;
 }
 
 
