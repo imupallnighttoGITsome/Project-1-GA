@@ -73,13 +73,11 @@ const computersTurn = () => {
     userChoices = []
     if (computerChoices.length === 1) {
         blink(computerChoices[0])
-        start.style.opacity = 1
     } else {
         blink(computerChoices[0])
         createSequence(computerChoices)
         keepScore()
         start.style.background = 'none'
-        start.style.opacity = 1
     }
 }
 
@@ -107,7 +105,7 @@ const checkClicks = (arr1, arr2) => {
         gameOver.style.display = 'block'
         gameOver.style.marginTop = "40px"
         restart.style.display = 'inline'
-        start.style.opacity = 0
+        start.style.display = 'none'
         alert('Better luck next time')
     }
     
@@ -130,7 +128,7 @@ const playAgain = () => {
     count = 0;
     currentScore.textContent = `${count}`
     currentStreak.style.display = 'inline'
-    start.style.opacity = 1
+    start.style.display = 'inline'
 }
 
 //setTimeout(openModal, 1000);
