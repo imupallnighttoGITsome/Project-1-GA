@@ -13,11 +13,11 @@ This game was developed through implementing concepts through the following lang
 ![wireframe](wireframe.png)
 
 ## User Stories
--As a player,  you are able to watch a computer screen button light up, so that when it's my turn I can click the same button.
--As a player, you are able to watch the computer light up a series of buttons accumulating one new light up at a time, so that play can go back and forth as long as I am able to mimic the computers choices in the correct order.
--As a player, you are able to see a running score of my winning streaks.
--As a player, you have unlimited time to make my next choice in the series.
--As a player, if you choose the wrong button the game can restart at one light so I can play again.
+- As a player,  you are able to watch a computer screen button light up, so that when it's my turn I can click the same button.
+- As a player, you are able to watch the computer light up a series of buttons accumulating one new light up at a time, so that play can go back and forth as long as I am able to mimic the computers choices in the correct order.
+- As a player, you are able to see a running score of my winning streaks.
+- As a player, you have unlimited time to make my next choice in the series.
+- As a player, if you choose the wrong button the game can restart at one light so I can play again.
 ## Major Hurdles and Unresolved
 - Struggled with overlapping of my buttons which led to functionality issues.
 - Was not able to implement a function to check the users' clicks in real time against the computer generated pattern.
