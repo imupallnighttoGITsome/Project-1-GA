@@ -67,7 +67,6 @@ const createSequence = async (array) => {
 const computersTurn = () => {
     let randomIndex = Math.floor(Math.random() * 4);
     computerChoices.push(shapes[randomIndex])
-    console.log(computerChoices);
     start.innerText = 'HIT ME'
     start.style.background = 'none'
     userChoices = []
@@ -131,7 +130,7 @@ const playAgain = () => {
     start.style.display = 'inline'
 }
 
-//setTimeout(openModal, 1000);
+setTimeout(openModal, 1000);
 addBlinkToUserClicks()
 start.addEventListener('click', computersTurn)
 restart.addEventListener('click', playAgain)
